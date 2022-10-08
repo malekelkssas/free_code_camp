@@ -1,11 +1,14 @@
 import numpy as np
 map = {0:'R',1:'P',2:'S'}
 mapInverse = {'R':0,'P':1,'S':2}
-rewards = {'R':{'R':-0.5,'P':-0.9,'S':0.9},'P':{'R':0.9,'P':-0.5,'S':-0.9},'S':  {'R':-0.9,'P':0.9,'S':-0.5}}
+rewards = {'R':{'R':0,'P':-1,'S':1},'P':{'R':1,'P':0,'S':-1},'S':  {'R':-1,'P':1,'S':0}}
 STATES = 3    #opponent     
 ACTIONS = 3  #player
-LEARNING_RATE = 0.75
-GAMMA = 0.7
+# LEARNING_RATE = 0.75
+# GAMMA = 0.7
+LEARNING_RATE = 0.81    # a higher rate a faster the model learn
+GAMMA = 0.96
 Q = np.zeros((STATES,ACTIONS))
 epsilon = 0.9
 EPISODES= 1000
+best = {'R':'S','P':'R','S':'P'}

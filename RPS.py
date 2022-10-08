@@ -14,14 +14,14 @@ def player(prev_play, opponent_history=[]):
     return myGlobal.map[state]
   else:
     state = opponent_history[-1]  #my prev play
-    opponent_history.append(state)
     reward = myGlobal.rewards[prev_play][myGlobal.map[state]]
-    if np.random.uniform(0,1)<myGlobal.epsilon  :
+    if np.random.uniform(0,1)<myGlobal.epsilon :
       action = int(np.random.uniform(0,3))
     else:
       action = np.argmax(myGlobal.Q[myGlobal.mapInverse[prev_play],:]) 
-    myGlobal.Q[myGlobal.mapInverse[prev_play],state] = myGlobal.Q[myGlobal.mapInverse[prev_play],state] + myGlobal.LEARNING_RATE * (reward + myGlobal.GAMMA *   np.max(myGlobal.Q[action, :]) - myGlobal.Q[myGlobal.mapInverse[prev_play],state])
+    myGlobal.Q[myGlobal.mapInverse[prev_play],state] = myGlobal.Q[myGlobal.mapInverse[prev_play],state] + myGlobal.LEARNING_RATE * (reward + myGlobal.GAMMA *   np.max(myGlobal.Q[myGlobal.mapInverse[myGlobal.best[prev_play]], :]) - myGlobal.Q[myGlobal.mapInverse[prev_play],state])
     myGlobal.epsilon-=0.0009
+    opponent_history.append(action)
     return myGlobal.map[action]
 def check(E):
   if E==0:
