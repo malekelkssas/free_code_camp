@@ -5,29 +5,29 @@ import myGlobal
 def player(prev_play, opponent_history=[]):
   if check(myGlobal.EPISODES):
     opponent_history = []
-  action=-1
+  if len(opponent_history)==0:
+    opponent_history.append(0)
+    return myGlobal.map[0]
   myGlobal.EPISODES -=1
-  state =-1
-  if len(opponent_history) == 0:
-    state = int(np.random.uniform(0,3))
-    opponent_history.append(state)
-    return myGlobal.map[state]
+  action=-1
+  state = opponent_history[-1]  #my prev play
+  reward = myGlobal.rewards[myGlobal.map[state]][prev_play]
+  if np.random.uniform(0,1)<myGlobal.epsilon :
+    action = int(np.random.uniform(0,3))
   else:
-    state = opponent_history[-1]  #my prev play
-    reward = myGlobal.rewards[prev_play][myGlobal.map[state]]
-    if np.random.uniform(0,1)<myGlobal.epsilon :
-      action = int(np.random.uniform(0,3))
-    else:
-      action = np.argmax(myGlobal.Q[myGlobal.mapInverse[prev_play],:]) 
-    myGlobal.Q[myGlobal.mapInverse[prev_play],state] = myGlobal.Q[myGlobal.mapInverse[prev_play],state] + myGlobal.LEARNING_RATE * (reward + myGlobal.GAMMA *   np.max(myGlobal.Q[myGlobal.mapInverse[myGlobal.best[prev_play]], :]) - myGlobal.Q[myGlobal.mapInverse[prev_play],state])
-    myGlobal.epsilon-=0.0009
-    opponent_history.append(action)
-    return myGlobal.map[action]
+    action = np.argmax(myGlobal.Q[state,:]) 
+  next_state = action
+  myGlobal.Q[state,action] = myGlobal.Q[state,action] + myGlobal.LEARNING_RATE * (reward + myGlobal.GAMMA *  np.max(myGlobal.Q[next_state, :]) - myGlobal.Q[state,action])
+  myGlobal.epsilon-=0.0001
+  opponent_history.append(action)
+  return myGlobal.map[action]
+
+  
 def check(E):
-  if E==0:
+  if E==0 :
     myGlobal.Q = np.zeros((myGlobal.STATES,myGlobal.ACTIONS))
     myGlobal.epsilon = 0.9
-    myGlobal.EPISODES= 1000
+    myGlobal.EPISODES= 999
     return True
   return False
 

@@ -4,10 +4,10 @@ from RPS import player
 from unittest import main
 import myGlobal
 # play(player, quincy, 1000,verbose=True)
-# play(player, abbey, 1000,verbose=True)
+# play(player, abbey, 1000,verbose=True)  #-1
 # play(player, kris, 1000,verbose=True)
-play(player, mrugesh, 1000,verbose=True)
-print(myGlobal.Q)
+# play(player, mrugesh, 1000,verbose=True)
+# print(myGlobal.Q)
 # Uncomment line below to play interactively against a bot:
 # play(human, abbey, 20, verbose=True)
 
@@ -17,4 +17,4 @@ print(myGlobal.Q)
 
 
 # Uncomment line below to run unit tests automatically
-# main(module='test_module', exit=False)
+main(module='test_module', exit=False)
