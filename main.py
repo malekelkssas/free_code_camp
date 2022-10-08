@@ -2,12 +2,12 @@
 from RPS_game import play, mrugesh, abbey, quincy, kris, human, random_player
 from RPS import player
 from unittest import main
-
-play(player, quincy, 1000)
-play(player, abbey, 1000)
-play(player, kris, 1000)
-play(player, mrugesh, 1000)
-
+import myGlobal
+play(player, quincy, 1000,verbose=True)
+# play(player, abbey, 1000,verbose=True)
+# play(player, kris, 1000,verbose=True)
+# play(player, mrugesh, 1000,verbose=True)
+print(myGlobal.Q)
 # Uncomment line below to play interactively against a bot:
 # play(human, abbey, 20, verbose=True)
 
