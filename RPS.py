@@ -17,14 +17,9 @@ def player(prev_play, opponent_history=[]):
   action=-1
   state = opponent_history[-1]  #my prev play
   reward = myGlobal.rewards[myGlobal.map[state]][prev_play]
-  if np.random.uniform(0,1)< myGlobal.epsilon or myGlobal.EPISODES >900:
-    action = int(np.random.uniform(0,3))
-    next_state = action
-    myGlobal.Q[state,action] = myGlobal.Q[state,action] + 0.25* (reward + 0.25 *np.max(myGlobal.Q[next_state, :])-np.absolute(myGlobal.Q[state,action]))
-  else:
-    action = np.argmax(myGlobal.Q[state,:]) 
-    next_state = action
-    myGlobal.Q[state,action] = myGlobal.Q[state,action] +   myGlobal.LEARNING_RATE * (reward + myGlobal.GAMMA *  np.max(myGlobal.Q[next_state, :]) - np.absolute(myGlobal.Q[state,action]))
+  action = np.argmax(myGlobal.Q[state,:]) 
+  next_state = action
+  myGlobal.Q[state,action] = myGlobal.Q[state,action] +   myGlobal.LEARNING_RATE * (reward + myGlobal.GAMMA *  np.max(myGlobal.Q[next_state, :]) - np.absolute(myGlobal.Q[state,action]))
   opponent_history.append(action)
   myGlobal.epsilon-=0.0001
   return myGlobal.map[action]
@@ -33,7 +28,7 @@ def player(prev_play, opponent_history=[]):
 def check(E):
   if E==0:
     myGlobal.Q = np.zeros((myGlobal.STATES,myGlobal.ACTIONS))
-    myGlobal.epsilon = 0.25
+    myGlobal.epsilon = 0.75
     myGlobal.EPISODES= 999
     return True
   return False

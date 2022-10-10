@@ -6,7 +6,7 @@ import myGlobal
 
 # play(player, abbey, 1000,verbose=True)
 # play(player, kris, 1000,verbose=True)
-# play(player, mrugesh, 1000,verbose=True)
+play(player, mrugesh, 1000,verbose=True)
 # play(player, quincy, 1000,verbose=True)
 # print(myGlobal.Q)
 # Uncomment line below to play interactively against a bot:
@@ -18,4 +18,4 @@ import myGlobal
 
 
 # Uncomment line below to run unit tests automatically
-main(module='test_module', exit=False)
+# main(module='test_module', exit=False)
